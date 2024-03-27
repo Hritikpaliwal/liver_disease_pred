@@ -1,10 +1,12 @@
 #importing libraries
 from fastapi import FastAPI
 from pydantic import BaseModel
-from joblib import load
+import pickle
 
-# Load the pre-trained model
-model = load('model.pkl')  # Loading trained model file
+# Load the pre-trained model using pickle
+with open('model.pkl', 'rb') as f:
+    model = pickle.load(f)
+
 
 # Define FastAPI app
 app = FastAPI()
