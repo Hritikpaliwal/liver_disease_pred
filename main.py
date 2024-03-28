@@ -24,6 +24,7 @@ class InputData(BaseModel):
     Albumin: float
     Albumin_and_Globulin_Ratio: float
 
+
 # Endpoint for model prediction
 @app.post("/predict")
 async def predict(data: InputData):
