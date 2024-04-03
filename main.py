@@ -34,11 +34,14 @@ class InputData(BaseModel):
 @app.post("/predict")
 async def predict(data: InputData):
     # Convert input data to dictionary
-    input_data = data.dict()
+    input_data = data.model_dump()
+    # Convert gender to integer (0 or 1)
+    gender_int = 0 if input_data['Gender_of_the_patient'].lower() == 'male' else 1
     
     # Extract features for prediction
     features = [
         input_data['Age_of_the_patient'],
+        gender_int,
         input_data['Total_Bilirubin'],
         input_data['Direct_Bilirubin'],
         input_data['Alkaline_Phosphatase'],
@@ -52,6 +55,8 @@ async def predict(data: InputData):
     # Make prediction
     prediction = model.predict([features])[0]
     
+    print("prediction", prediction, type(prediction))
+    
     # Return prediction result
-    return {"prediction": prediction}
+    return {"prediction": int(prediction)}
 
