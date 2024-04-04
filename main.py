@@ -9,6 +9,7 @@ model = load('model1.joblib')
 
 # Load the pre-trained model using pickle
 #with open('model.pkl', 'rb') as f:
+#also changed the input method of model from pkl to joblib
 # old model with different version of sklearn lib which was giving error
     #model = pickle.load(f)
 
@@ -35,6 +36,8 @@ class InputData(BaseModel):
 async def predict(data: InputData):
     # Convert input data to dictionary
     input_data = data.model_dump()
+    
+    #
     # Convert gender to integer (0 or 1)
     gender_int = 0 if input_data['Gender_of_the_patient'].lower() == 'male' else 1
     
